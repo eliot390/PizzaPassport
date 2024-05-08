@@ -1,29 +1,19 @@
-import React from 'react';
-import { Text, View, SafeAreaView, StyleSheet } from 'react-native';
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import WelcomeScreen from "./src/components/WelcomeScreen";
+import Passport from "./src/components/Passport";
 
 const App = () => {
   return (
-    <SafeAreaView style={styles.wrapper}>
-      <View style={styles.container}>
-        <Text style={styles.text}>🍕 Welcome to Pizza Passport! 🍕</Text>
-      </View>
-    </SafeAreaView>
-    
-  );
+    <View style={styles.container}>
+      <Passport />
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1
-  },
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'red'
-  },
-  text: {
-    fontSize: 20
+    flex: 1
   }
 })
 
