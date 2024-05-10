@@ -1,20 +1,16 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
-import WelcomeScreen from "./src/components/WelcomeScreen";
-import Passport from "./src/components/Passport";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Tabs from "./src/components/Tabs";
+
+const Tab = createBottomTabNavigator()
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <Passport />
-    </View>
+    <NavigationContainer>
+      <Tabs />
+    </NavigationContainer>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-})
 
 export default App

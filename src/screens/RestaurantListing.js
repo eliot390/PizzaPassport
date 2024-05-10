@@ -1,5 +1,6 @@
 import React from "react";
 import { SafeAreaView, StyleSheet, Text, FlatList, View, StatusBar } from "react-native";
+import ListItem from "../components/ListItem";
 
 const DATA = [
   {
@@ -52,21 +53,9 @@ const Empty = () => (
   </View>
 )
 
-const Item = (props) => {
-  const {name, rating, neighborhood, address} = props;
-  return (
-    <View style={styles.item}>
-      <Text style={styles.headingText}>{name}</Text>
-      <Text style={styles.text}>{rating}</Text>
-      <Text style={styles.text}>{neighborhood}</Text>
-      <Text style={styles.text}>{address}</Text>
-    </View>
-  )
-}
-
-const Passport = () => {
+const RestaurantListing = () => {
   const renderItem = ({item}) => (
-    <Item 
+    <ListItem 
       name={item.name} 
       rating={item.rating} 
       neighborhood={item.neighborhood} 
@@ -74,8 +63,9 @@ const Passport = () => {
     />
   )
 
+  const {container} = styles
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={container}>
       <FlatList 
         data={DATA} 
         renderItem={renderItem} 
@@ -90,23 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
     backgroundColor: '#f0c100'
-  },
-  item: {
-    padding: 10,
-    marginVertical: 5,
-    marginHorizontal: 15,
-    alignItems: 'center',
-    borderWidth: 2,
-    backgroundColor: '#b22222'
-  },
-  headingText: {
-    fontSize: 30,
-    fontWeight: 'bold', 
-  },
-  text: {
-    fontSize: 20,
-    color: '#fff'
   }
 })
 
-export default Passport
+export default RestaurantListing
