@@ -10,9 +10,12 @@ const welcomeStyles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#ffffff'
   },
-  text: {
+  welcome: {
     fontSize: 25,
     fontWeight: 'bold'
+  },
+  text: {
+    fontSize: 15
   }
 })
 

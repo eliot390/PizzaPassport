@@ -1,18 +1,40 @@
 import React from 'react';
-import { Text, View, SafeAreaView, Image } from 'react-native';
-import welcomeStyles from '../styles/styles';
+import { Text, View, SafeAreaView, Image, StyleSheet } from 'react-native';
+// import welcomeStyles from '../styles/styles';
 
-const WelcomeScreen = () => {
-  const {wrapper, container, text} = welcomeStyles
+const WelcomeScreen = ({ restaurantData }) => {
+  const {wrapper, container, welcomeText, text} = styles
+  const {city} = restaurantData
+  
   return (
     <SafeAreaView style={wrapper}>
       <View style={container}>
-        <Text style={text}>Welcome to Pizza Passport!</Text>
+        <Text style={welcomeText}>Welcome to Pizza Passport!</Text>
+        <Text style={text}>{city}</Text>
       </View>
       <Image source={require('../../assets/pizza-guy.jpg')} />
     </SafeAreaView>
     
   );
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ffffff'
+  },
+  welcomeText: {
+    fontSize: 25,
+    fontWeight: 'bold'
+  },
+  text: {
+    fontSize: 20
+  }
+})
 
 export default WelcomeScreen

@@ -7,23 +7,22 @@ import { useGetRestaurants } from "./src/hooks/useGetRestaurants";
 const App = () => {
   const [loading, error, restaurants] = useGetRestaurants()
 
-  if (restaurants) {
-    console.log(restaurants)
-  }
-
-  if (loading) {
+  if (restaurants && !loading) {
     return (
-      <View style={styles.container}>
-        <ActivityIndicator size={'large'} color={'#fff'} />
-        <Text style={styles.text}>Loading...</Text>
-      </View>
+      <NavigationContainer>
+        <Tabs restaurants={restaurants} />
+      </NavigationContainer>
     )
   }
 
   return (
-    <NavigationContainer>
-      <Tabs />
-    </NavigationContainer>
+    <View style={styles.container}>
+      {error ? (
+        error
+      ) : (
+        <ActivityIndicator size={'large'} color={'#fff'} />
+      )}
+    </View>
   )
 }
 
@@ -40,4 +39,5 @@ const styles = StyleSheet.create({
     color: '#fff'
   }
 })
+
 export default App

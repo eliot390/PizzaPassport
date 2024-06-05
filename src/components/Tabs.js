@@ -9,21 +9,24 @@ import { Feather } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator()
 
-const Tabs = () => {
+const Tabs = ({restaurants}) => {
   return (
     <Tab.Navigator screenOptions={{ tabBarActiveTintColor: '#b22222', tabBarInactiveTintColor: 'gray'}}>
       <Tab.Screen 
         name={'Welcome'} 
-        component={WelcomeScreen} 
-        options={{tabBarIcon: ({focused}) => <Ionicons name='pizza-outline' size={25} color={focused? '#b22222' : 'gray'} />}}/>
+        options={{tabBarIcon: ({focused}) => <Ionicons name='pizza-outline' size={25} color={focused? '#b22222' : 'gray'} />}}>
+        {() => <WelcomeScreen restaurantData={restaurants.data}/>}
+      </Tab.Screen>
       <Tab.Screen 
         name={'Listing'} 
-        component={RestaurantListing}
-        options={{tabBarIcon: ({focused}) => <Feather name='list' size={25} color={focused? '#b22222' : 'gray'} />}}/>
+        options={{tabBarIcon: ({focused}) => <Feather name='list' size={25} color={focused? '#b22222' : 'gray'} />}}>
+        {() => <RestaurantListing restaurantData={restaurants.data}/>}
+      </Tab.Screen>
       <Tab.Screen 
         name={'Restaurant'} 
-        component={RestaurantPage}
-        options={{tabBarIcon: ({focused}) => <Ionicons name='restaurant-outline' size={25} color={focused? '#b22222' : 'gray'} />}}/>
+        options={{tabBarIcon: ({focused}) => <Ionicons name='restaurant-outline' size={25} color={focused? '#b22222' : 'gray'} />}}>
+        {() => <RestaurantPage restaurantData={restaurants}/>}
+      </Tab.Screen>
       <Tab.Screen 
         name={'Profile'} 
         component={UserProfile}

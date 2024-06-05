@@ -2,14 +2,14 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 const ListItem = (props) => {
-  const {name, rating, neighborhood, address} = props;
+  const {title, first, last, cell} = props;
   const {item, headingText, text} = styles;
   return (
-    <View style={item}>
-      <Text style={headingText}>{name}</Text>
-      <Text style={text}>{rating}</Text>
-      <Text style={text}>{neighborhood}</Text>
-      <Text style={text}>{address}</Text>
+    <View >
+      <Text>{title}</Text>
+      <Text style={text}>{first}</Text>
+      <Text style={text}>{last}</Text>
+      <Text style={text}>{cell}</Text>
     </View>
   )
 }
