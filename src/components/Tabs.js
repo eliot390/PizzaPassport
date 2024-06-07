@@ -23,9 +23,11 @@ const Tabs = ({restaurants}) => {
         {() => <RestaurantListing restaurantData={restaurants.data}/>}
       </Tab.Screen>
       <Tab.Screen 
-        name={'Restaurant'} 
+        name='RestaurantPage'
+        component={RestaurantPage}
         options={{tabBarIcon: ({focused}) => <Ionicons name='restaurant-outline' size={25} color={focused? '#b22222' : 'gray'} />}}>
-        {() => <RestaurantPage restaurantData={restaurants}/>}
+        {/* {() => <RestaurantPage restaurantData={restaurants}/>} */}
+        
       </Tab.Screen>
       <Tab.Screen 
         name={'Profile'} 

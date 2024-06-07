@@ -2,15 +2,14 @@ import React from 'react';
 import { Text, View, SafeAreaView, Image, StyleSheet } from 'react-native';
 // import welcomeStyles from '../styles/styles';
 
-const WelcomeScreen = ({ restaurantData }) => {
+const WelcomeScreen = () => {
   const {wrapper, container, welcomeText, text} = styles
-  const {city} = restaurantData
+  //const {city} = restaurantData
   
   return (
     <SafeAreaView style={wrapper}>
       <View style={container}>
         <Text style={welcomeText}>Welcome to Pizza Passport!</Text>
-        <Text style={text}>{city}</Text>
       </View>
       <Image source={require('../../assets/pizza-guy.jpg')} />
     </SafeAreaView>

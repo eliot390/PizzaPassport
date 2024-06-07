@@ -20,7 +20,11 @@ const App = () => {
       {error ? (
         error
       ) : (
-        <ActivityIndicator size={'large'} color={'#fff'} />
+        <>
+          <ActivityIndicator size={'large'} color={'#fff'} />
+          <Text style={styles.text}>Please wait...</Text>
+        </>
+        
       )}
     </View>
   )
@@ -34,9 +38,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#b22222'
   },
   text: {
-    fontSize: 20,
-    marginTop: 20,
-    color: '#fff'
+    color: '#fff',
+    fontSize: 20
   }
 })
 
