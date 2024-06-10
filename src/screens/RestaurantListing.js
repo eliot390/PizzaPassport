@@ -5,7 +5,7 @@ import { SafeAreaView, StyleSheet, Text, FlatList, View, StatusBar, TouchableOpa
 const RestaurantListing = ({ restaurantData }) => {
   const navigation = useNavigation()
   const {container} = styles
-  const filterdRatings = restaurantData.filter(restaurant => restaurant.rating>4.0);
+  const filterdRatings = restaurantData.filter(restaurant => restaurant.rating>4.0 && restaurant.review_count>100)
   
   return (
     <SafeAreaView style={container}>

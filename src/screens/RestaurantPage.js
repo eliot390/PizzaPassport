@@ -1,11 +1,15 @@
 import React from "react";
 import { SafeAreaView, Image, StyleSheet, StatusBar, View, Text, TouchableOpacity, Linking } from "react-native";
 import { Fontisto } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import PizzaRating from "../components/PizzaRating";
 
 const RestaurantPage = ({ route }) => {
   const { restaurant } = route.params
-  let webs = restaurant.website.toString()
-  let modSite = webs.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')
+  let website = restaurant.website ? restaurant.website.toString() : ''
+  let modSite = website ? website.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '') : ''
+  let address = restaurant.full_address ? restaurant.full_address.toString() : ''
+  let modAddress = address.replace(/, /g, '\n').replace(/\nCA /, ' ')
   
   const handlePress = async (url) => {
     const supported = await Linking.canOpenURL(url);
@@ -16,24 +20,43 @@ const RestaurantPage = ({ route }) => {
     }
   }
 
+  // const renderPizza = (rating) => {
+  //   const slices = [];
+  //   for (let i=1; i<=5; i++) {
+  //     slices.push(
+  //       <Ionicons
+  //         key={i}
+  //         name={i <= rating ? 'pizza-outline' : ''}
+  //         style={styles.pizzaIcon}
+  //       />
+  //     )
+  //   }
+  //   return slices
+  // }
+
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+      <View style={styles.imageContainer}>
         <Image source={{ uri: restaurant.photos[0].src}} style={styles.image1}/>
         <Text style={styles.textName}>{restaurant.name}</Text>
       </View>
       <View style={styles.website}>
-        <Fontisto name='world-o' style={styles.icon} />
         {restaurant.website && (
-          <TouchableOpacity onPress={() => handlePress(restaurant.website)}>
-            <Text style={styles.text}>{modSite}</Text>
-          </TouchableOpacity>
+          <>
+            <Fontisto name='world-o' style={styles.icon} />        
+            <TouchableOpacity onPress={() => handlePress(restaurant.website)}>
+              <Text style={styles.text}>{modSite}</Text>
+            </TouchableOpacity>
+          </>
         )}
       </View>
       <View style={styles.textContainer}>        
-        <Text style={styles.text}>{restaurant.full_address}</Text>
-        <Text style={styles.text}>Reviews: {restaurant.review_count}</Text>
-        <Text style={styles.text}>Rating: {restaurant.rating}</Text>
+        <Text style={styles.textAddress}>{modAddress}</Text>
+        <Text style={styles.textReview}>Reviews: {restaurant.review_count}</Text>
+        {/* <Text style={styles.textRating}>Rating: {renderPizza(Math.round(restaurant.rating))}</Text> */}
+        <View style={{ flexDirection: 'row', alignItems:'center' }}>
+          <Text style={styles.textRating}>Rating: </Text><PizzaRating rating={restaurant.rating} />          
+        </View>
       </View>  
     </SafeAreaView>
   )
@@ -47,9 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fffcd9'
   },
   imageContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start'    
+    marginBottom: 10
   },
   image1: {
     height:150,
@@ -68,6 +89,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'green'
   },
+  textAddress: {
+    fontSize: 20,
+    color: 'green',
+    marginBottom: 10
+  },
+  textRating: {
+    fontSize: 20,
+    color: 'green',
+    marginBottom: 10
+  },
+  textReview: {
+    fontSize: 20,
+    color: 'green',
+    marginBottom: 10
+  },
   textName: {
     color: 'green',
     fontSize: 25,
@@ -75,12 +111,18 @@ const styles = StyleSheet.create({
   },
   website: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 10
   },
   icon: {
     color: 'green',
     fontSize: 30,
     paddingRight: 10
+  },
+  pizzaIcon: {
+    fontSize: 20,
+    color: '#b22222'
   }
 })
+
 export default RestaurantPage
