@@ -1,15 +1,21 @@
-import React from "react";
-import { SafeAreaView, Image, StyleSheet, StatusBar, View, Text, TouchableOpacity, Linking } from "react-native";
+import React, { useState } from "react";
+import { SafeAreaView, Image, StyleSheet, StatusBar, View, Text, TouchableOpacity, Linking, TextInput } from "react-native";
 import { Fontisto } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import PizzaRating from "../components/PizzaRating";
 
 const RestaurantPage = ({ route }) => {
   const { restaurant } = route.params
+  const [text, setText] = useState('')
+
   let website = restaurant.website ? restaurant.website.toString() : ''
   let modSite = website ? website.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '') : ''
+
   let address = restaurant.full_address ? restaurant.full_address.toString() : ''
   let modAddress = address.replace(/, /g, '\n').replace(/\nCA /, ' ')
+
+  let phoneNumber = restaurant.phone_number ? restaurant.phone_number.toString() : ''
+  let modNumber = phoneNumber.replace(/^\+1(\d{3})(\d{3})(\d{4})$/, '($1) $2-$3')
   
   const handlePress = async (url) => {
     const supported = await Linking.canOpenURL(url);
@@ -20,44 +26,46 @@ const RestaurantPage = ({ route }) => {
     }
   }
 
-  // const renderPizza = (rating) => {
-  //   const slices = [];
-  //   for (let i=1; i<=5; i++) {
-  //     slices.push(
-  //       <Ionicons
-  //         key={i}
-  //         name={i <= rating ? 'pizza-outline' : ''}
-  //         style={styles.pizzaIcon}
-  //       />
-  //     )
-  //   }
-  //   return slices
-  // }
-
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image source={{ uri: restaurant.photos[0].src}} style={styles.image1}/>
-        <Text style={styles.textName}>{restaurant.name}</Text>
-      </View>
-      <View style={styles.website}>
-        {restaurant.website && (
-          <>
-            <Fontisto name='world-o' style={styles.icon} />        
-            <TouchableOpacity onPress={() => handlePress(restaurant.website)}>
-              <Text style={styles.text}>{modSite}</Text>
-            </TouchableOpacity>
-          </>
-        )}
-      </View>
-      <View style={styles.textContainer}>        
-        <Text style={styles.textAddress}>{modAddress}</Text>
-        <Text style={styles.textReview}>Reviews: {restaurant.review_count}</Text>
-        {/* <Text style={styles.textRating}>Rating: {renderPizza(Math.round(restaurant.rating))}</Text> */}
-        <View style={{ flexDirection: 'row', alignItems:'center' }}>
-          <Text style={styles.textRating}>Rating: </Text><PizzaRating rating={restaurant.rating} />          
+      <View style={styles.topContainer}>
+        <View style={styles.imageContainer}>
+          <Image source={{ uri: restaurant.photos[0].src}} style={styles.image1}/>
+          <Text style={styles.textName}>{restaurant.name}</Text>
         </View>
-      </View>  
+        <View style={styles.imageContainer}>
+          <View style={styles.textContainer}>
+            <View style={styles.infoContainer}>
+              <Fontisto name='map-marker-alt' style={styles.icon}/>
+              <Text style={styles.text}>{modAddress}</Text>
+            </View>
+            <View style={styles.infoContainer}>
+              <Ionicons name='call-outline' style={styles.icon}/>
+              <Text style={styles.text}>{modNumber}</Text>
+            </View>
+            <View style={styles.infoContainer}>
+              {restaurant.website && (
+                <>
+                  <Fontisto name='world-o' style={styles.icon} />
+                  <TouchableOpacity onPress={() => handlePress(restaurant.website)}>
+                    <Text style={styles.text}>{modSite}</Text>
+                  </TouchableOpacity>
+                </>
+              )}
+            </View>
+          </View>  
+        </View>
+      </View>
+      <View style={styles.bottomContainer}>
+        <Image source={require('../../assets/pizza_half.png')} style={styles.imagePizza} />        
+        <Text style={styles.text}>{restaurant.description[1]}</Text>
+        <View style={{ flexDirection: 'row', alignItems:'center' }}>
+          <Text style={styles.textRating}>Rating: </Text><PizzaRating rating={restaurant.rating} />
+        </View>
+        <View>
+          <Text></Text>
+        </View>
+      </View>
     </SafeAreaView>
   )
 }
@@ -67,61 +75,69 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: StatusBar.currentHeight || 0,
     paddingLeft:5,
+    paddingRight: 5,
     backgroundColor: '#fffcd9'
   },
   imageContainer: {
-    marginBottom: 10
+    padding: 5,
+    width: '50%',
+    justifyContent: 'flex-start'
+  },
+  infoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  textContainer: {
+    flex:1,
+    justifyContent: 'space-evenly'
+  },
+  topContainer: {
+    flexDirection: 'row',
+    borderColor: '#000',
+    borderWidth: 1,
+    backgroundColor: '#fff'
+  },
+  bottomContainer: {
+    alignItems: 'center'
+  },
+  phoneContainer: {
+    alignItems: 'baseline'
   },
   image1: {
     height:150,
     width: 150,
-    marginRight: 2
-  },
-  image2: {
-    height: 100,
-    width: '100%'
-  },
-  textContainer: {
-    flex:1,
-    justifyContent:'flex-start'
+    borderRadius: 100
   },
   text: {
-    fontSize: 20,
+    fontSize: 18,
     color: 'green'
   },
-  textAddress: {
-    fontSize: 20,
-    color: 'green',
-    marginBottom: 10
-  },
   textRating: {
-    fontSize: 20,
-    color: 'green',
-    marginBottom: 10
-  },
-  textReview: {
-    fontSize: 20,
-    color: 'green',
-    marginBottom: 10
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: 'green'    
   },
   textName: {
     color: 'green',
     fontSize: 25,
     fontWeight: 'bold'
   },
-  website: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10
-  },
   icon: {
     color: 'green',
     fontSize: 30,
-    paddingRight: 10
+    paddingRight: 5
   },
   pizzaIcon: {
-    fontSize: 20,
+    fontSize: 40,
     color: '#b22222'
+  },
+  imagePizza: {
+    width: 320,
+    height: 125,
+    marginTop: 20
+  },
+  input: {
+    
   }
 })
 

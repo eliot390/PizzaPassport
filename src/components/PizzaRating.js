@@ -8,7 +8,7 @@ const PizzaRating = ({ rating }) => {
   const fractionWidth = fractionPizza * 20
   
   const wholeIcons = Array.from({ length: wholePizza}, (_, index) =>(
-    <Ionicons key={index} name='pizza-outline' size={20} color='#b22222' />
+    <Ionicons key={index} name='pizza-outline' size={40} color='#b22222' />
   ))
 
   return (
@@ -16,7 +16,7 @@ const PizzaRating = ({ rating }) => {
       {wholeIcons}
       {fractionPizza > 0 && (
         <View style={{ overflow: 'hidden',  width: fractionWidth}}>
-          <Ionicons name='pizza-outline' size={20} color='#b22222' />
+          <Ionicons name='pizza-outline' size={40} color='#b22222' />
         </View>
       )}
     </View>

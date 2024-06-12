@@ -15,7 +15,6 @@ const RestaurantListing = ({ restaurantData }) => {
           <TouchableOpacity onPress={() => navigation.navigate('RestaurantPage', { restaurant : item})}>
             <View style={styles.item}>
               <Text style={styles.headingText}>{item.name}</Text>
-              {/* <Text style={styles.text}>{item.city}</Text> */}
               <Text style={styles.text}>{item.price_level}</Text>
               <Text style={styles.text}>Rating: {item.rating}</Text>
             </View>

@@ -3,15 +3,14 @@ import { Text, View, SafeAreaView, Image, StyleSheet } from 'react-native';
 // import welcomeStyles from '../styles/styles';
 
 const WelcomeScreen = () => {
-  const {wrapper, container, welcomeText, text} = styles
-  //const {city} = restaurantData
+  
   
   return (
-    <SafeAreaView style={wrapper}>
-      <View style={container}>
-        <Text style={welcomeText}>Welcome to Pizza Passport!</Text>
+    <SafeAreaView style={styles.wrapper}>
+      <View style={styles.container}>
+        <Text style={styles.welcomeText}>Welcome to Pizza Passport!</Text>
+        <Image source={require('../../assets/pizza.png')} style={styles.image} resizeMode='contain'/>
       </View>
-      <Image source={require('../../assets/pizza-guy.jpg')} />
     </SafeAreaView>
     
   );
@@ -24,7 +23,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     backgroundColor: '#ffffff'
   },
   welcomeText: {
@@ -33,6 +32,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20
+  },
+  image: {
+    width: '90%',
+    backgroundColor: '#fff'
   }
 })
 
