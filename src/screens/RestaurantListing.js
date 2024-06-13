@@ -30,18 +30,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: StatusBar.currentHeight || 0,
-    backgroundColor: '#b22222'
+    backgroundColor: '#fffcd9'
   },
   item: {
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
     paddingLeft: 2,
     paddingRight: 2,
     marginVertical: 5,
-    marginHorizontal: 15,
+    marginHorizontal: 10,
     alignItems: 'center',
     borderWidth: 2,
-    backgroundColor: '#fffcd9'
+    backgroundColor: '#fff'
   },
   headingText: {
     fontSize: 27,

@@ -19,7 +19,7 @@ const Tabs = ({restaurants}) => {
       </Tab.Screen>
       <Tab.Screen 
         name={'Listing'} 
-        options={{tabBarIcon: ({focused}) => <Feather name='list' size={25} color={focused? '#b22222' : 'gray'} />}}>
+        options={{tabBarIcon: ({focused}) => <Ionicons name='list' size={25} color={focused? '#b22222' : 'gray'} />}}>
         {() => <RestaurantListing restaurantData={restaurants.data}/>}
       </Tab.Screen>
       <Tab.Screen 

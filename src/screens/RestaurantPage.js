@@ -3,10 +3,10 @@ import { SafeAreaView, Image, StyleSheet, StatusBar, View, Text, TouchableOpacit
 import { Fontisto } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import PizzaRating from "../components/PizzaRating";
+import CheckboxWithAnimation from "../components/CheckboxAnimation";
 
 const RestaurantPage = ({ route }) => {
   const { restaurant } = route.params
-  const [text, setText] = useState('')
 
   let website = restaurant.website ? restaurant.website.toString() : ''
   let modSite = website ? website.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '') : ''
@@ -62,8 +62,9 @@ const RestaurantPage = ({ route }) => {
         <View style={{ flexDirection: 'row', alignItems:'center' }}>
           <Text style={styles.textRating}>Rating: </Text><PizzaRating rating={restaurant.rating} />
         </View>
-        <View>
-          <Text></Text>
+        <View style={styles.infoContainer}>
+          <Text style={styles.text}>Check in </Text>
+          <CheckboxWithAnimation />
         </View>
       </View>
     </SafeAreaView>
