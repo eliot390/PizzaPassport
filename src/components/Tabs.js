@@ -15,12 +15,12 @@ const Tabs = ({restaurants}) => {
       <Tab.Screen 
         name={'Welcome'} 
         options={{tabBarIcon: ({focused}) => <Ionicons name='pizza-outline' size={25} color={focused? '#b22222' : 'gray'} />}}>
-        {() => <WelcomeScreen restaurantData={restaurants.data}/>}
+        {() => <WelcomeScreen restaurantData={restaurants.businesses}/>}
       </Tab.Screen>
       <Tab.Screen 
         name={'Listing'} 
         options={{tabBarIcon: ({focused}) => <Ionicons name='list' size={25} color={focused? '#b22222' : 'gray'} />}}>
-        {() => <RestaurantListing restaurantData={restaurants.data}/>}
+        {() => <RestaurantListing restaurantData={restaurants.businesses}/>}
       </Tab.Screen>
       <Tab.Screen 
         name='RestaurantPage'

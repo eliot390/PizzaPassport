@@ -7,62 +7,61 @@ import CheckboxWithAnimation from "../components/CheckboxAnimation";
 
 const RestaurantPage = ({ route }) => {
   const { restaurant } = route.params
+  const mapsAddress = restaurant.location.display_address.join(',')
+  const mapsURL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapsAddress)}`
 
-  let website = restaurant.website ? restaurant.website.toString() : ''
-  let modSite = website ? website.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '') : ''
+  const phonePress = () => {
+    Linking.openURL(`tel:${restaurant.display_phone}`)
+  }
 
-  let address = restaurant.full_address ? restaurant.full_address.toString() : ''
-  let modAddress = address.replace(/, /g, '\n').replace(/\nCA /, ' ')
-
-  let phoneNumber = restaurant.phone_number ? restaurant.phone_number.toString() : ''
-  let modNumber = phoneNumber.replace(/^\+1(\d{3})(\d{3})(\d{4})$/, '($1) $2-$3')
-  
-  const handlePress = async (url) => {
-    const supported = await Linking.canOpenURL(url);
-    if (supported) {
-      await Linking.openURL(url)
-    }else{
-      console.log('Unable to open URL: ${url}')
-    }
+  const mapsPress = () => {
+    Linking.openURL(mapsURL)
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topContainer}>
         <View style={styles.imageContainer}>
-          <Image source={{ uri: restaurant.photos[0].src}} style={styles.image1}/>
+          <Image source={{ uri: restaurant.image_url}} style={styles.image1}/>
           <Text style={styles.textName}>{restaurant.name}</Text>
         </View>
         <View style={styles.imageContainer}>
           <View style={styles.textContainer}>
             <View style={styles.infoContainer}>
               <Fontisto name='map-marker-alt' style={styles.icon}/>
-              <Text style={styles.text}>{modAddress}</Text>
+              <TouchableOpacity onPress={mapsPress}>
+                <Text style={styles.text}>{restaurant.location.address1}</Text>
+              </TouchableOpacity>              
+              {restaurant.location.address2 ? <Text style={styles.text}>{restaurant.location.address2}</Text> : null}
+              {restaurant.location.address3 ? <Text style={styles.text}>{restaurant.location.address3}</Text> : null}
             </View>
             <View style={styles.infoContainer}>
               <Ionicons name='call-outline' style={styles.icon}/>
-              <Text style={styles.text}>{modNumber}</Text>
+              <TouchableOpacity onPress={phonePress}>
+                <Text style={styles.text}>{restaurant.display_phone}</Text>
+              </TouchableOpacity>              
             </View>
-            <View style={styles.infoContainer}>
-              {restaurant.website && (
+            {/* <View style={styles.infoContainer}>
+              {restaurant.url && (
                 <>
                   <Fontisto name='world-o' style={styles.icon} />
-                  <TouchableOpacity onPress={() => handlePress(restaurant.website)}>
+                  <TouchableOpacity onPress={() => handlePress(restaurant.url)}>
                     <Text style={styles.text}>{modSite}</Text>
                   </TouchableOpacity>
                 </>
               )}
-            </View>
+            </View> */}
           </View>  
         </View>
       </View>
       <View style={styles.bottomContainer}>
         <Image source={require('../../assets/pizza_half.png')} style={styles.imagePizza} />        
-        <Text style={styles.text}>{restaurant.description[1]}</Text>
-        <View style={{ flexDirection: 'row', alignItems:'center' }}>
-          <Text style={styles.textRating}>Rating: </Text><PizzaRating rating={restaurant.rating} />
-        </View>
+        {/* <View style={{ flexDirection: 'row', alignItems:'center' }}>
+          <Text style={styles.textRating}>Yelp Rating: </Text><PizzaRating rating={restaurant.rating} />
+        </View> */}
         <View style={styles.infoContainer}>
+          <Text style={styles.textRating}>Yelp Rating: </Text><PizzaRating rating={restaurant.rating} />
+          <Text style={styles.textRating}>My Rating: </Text>
           <Text style={styles.text}>Check in </Text>
           <CheckboxWithAnimation />
         </View>
@@ -85,8 +84,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   infoContainer: {
-    flexDirection: 'row',
-    alignItems: 'center'
+    flexDirection: 'column'
   },
   textContainer: {
     flex:1,
@@ -107,14 +105,16 @@ const styles = StyleSheet.create({
   image1: {
     height:150,
     width: 150,
-    borderRadius: 100
+    borderRadius: 100,
+    borderWidth: 2,
+    borderColor: '#b22222'
   },
   text: {
     fontSize: 18,
     color: 'green'
   },
   textRating: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: 'bold',
     color: 'green'    
   },

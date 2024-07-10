@@ -79,10 +79,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   textName: {
-    fontSize: 25
+    fontSize: 25,
+    fontWeight: 'bold'
   },
   text: {
-    fontSize: 25
+    color: 'green',
+    fontSize: 25,
+    fontWeight: 'bold'
   },
   image: {
     width: 120,

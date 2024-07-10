@@ -5,7 +5,7 @@ import { SafeAreaView, StyleSheet, Text, FlatList, View, StatusBar, TouchableOpa
 const RestaurantListing = ({ restaurantData }) => {
   const navigation = useNavigation()
   const {container} = styles
-  const filterdRatings = restaurantData.filter(restaurant => restaurant.rating>4.0 && restaurant.review_count>100)
+  const filterdRatings = restaurantData.filter(restaurant => restaurant.rating>4.0 && restaurant.review_count>500)
   
   return (
     <SafeAreaView style={container}>
@@ -15,12 +15,12 @@ const RestaurantListing = ({ restaurantData }) => {
           <TouchableOpacity onPress={() => navigation.navigate('RestaurantPage', { restaurant : item})}>
             <View style={styles.item}>
               <Text style={styles.headingText}>{item.name}</Text>
-              <Text style={styles.text}>{item.price_level}</Text>
+              <Text style={styles.text}>Reviews: {item.review_count}</Text>
               <Text style={styles.text}>Rating: {item.rating}</Text>
             </View>
           </TouchableOpacity>
         )} 
-        keyExtractor={(item) => item.business_id}
+        keyExtractor={(item) => item.id}
       />
     </SafeAreaView>
   )

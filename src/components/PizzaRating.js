@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 const PizzaRating = ({ rating }) => {
   const wholePizza = Math.floor(rating)
   const fractionPizza = rating-wholePizza
-  const fractionWidth = fractionPizza * 20
+  const fractionWidth = fractionPizza * 40
   
   const wholeIcons = Array.from({ length: wholePizza}, (_, index) =>(
     <Ionicons key={index} name='pizza-outline' size={40} color='#b22222' />
