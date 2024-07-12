@@ -22,7 +22,7 @@ const App = () => {
       ) : (
         <>
           <ActivityIndicator size={'large'} color={'#fff'} />
-          <Text style={styles.text}>Please wait...</Text>
+          <Text style={styles.text}>Pizzas cooking...</Text>
         </>
         
       )}
