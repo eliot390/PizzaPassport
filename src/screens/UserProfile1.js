@@ -4,8 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const User1 = [
   {
-    'first_name': 'Eliot',
-    'last_name': 'Pardo',
+    'name': 'Eliot Pardo',
     'stamps_earned': [
       { "id": 1, "title": "Visit 5 Pizza Spots" },
       { "id": 2, "title": "Visit 10 Pizza Spots" },
@@ -39,11 +38,18 @@ const UserProfile = () => {
     ))
   }
 
+  const getFormattedName = (name) => {
+    const [firstName, lastName] = name.split(' ');
+    return `${firstName} ${lastName.charAt(0)}.`;
+  }
+
+  const userName = getFormattedName(User1[0].name)
+
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.containerInfo}>
         <Image source={require('../../assets/default_pfp.png')} style={styles.image}/>
-        <Text style={styles.textName}>{user.first_name} {user.last_name.charAt(0)}.</Text>
+        <Text style={styles.textName}>{userName}</Text>
       </View>
       <View>
         <ScrollView horizontal contentContainerStyle={styles.stampsContainer}>

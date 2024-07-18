@@ -33,16 +33,30 @@ const UserProfile = () => {
     return <Text>Error: {error.message}</Text>
   }
 
+  const formatName = (name) => {
+    const [firstName, lastName] = name.split(' ');
+    return `${firstName} ${lastName.charAt(0)}.`;
+  }
+
 return (
-    <View>
+    <SafeAreaView style={styles.wrapper}>
       <FlatList
         data={users}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
-          <Text>{item.name} - {item.email}</Text>
+          <View>
+            <View style={styles.containerInfo}>
+              <Image source={require('../../assets/default_pfp.png')} style={styles.image}/>
+              <Text style={styles.textName}>{formatName(item.name)}</Text>
+            </View>
+            <View style={styles.containerStats}>
+              <Text style={styles.text}>Favorite Spot: {item.favoriteRestaurant}</Text>
+              <Text style={styles.text}>Favorite Pie: {item.favoritePizza}</Text>
+            </View>
+          </View>          
         )}
       />
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -71,7 +85,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'green',
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold'
   },
   image: {
