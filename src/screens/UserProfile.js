@@ -48,6 +48,7 @@ return (
             <View style={styles.containerInfo}>
               <Image source={require('../../assets/default_pfp.png')} style={styles.image}/>
               <Text style={styles.textName}>{formatName(item.name)}</Text>
+              <Text>{item.email}</Text>
             </View>
             <View style={styles.containerStats}>
               <Text style={styles.text}>Favorite Spot: {item.favoriteRestaurant}</Text>
